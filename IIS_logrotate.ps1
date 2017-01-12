@@ -1,6 +1,6 @@
 clear
-$IIS_LogRotator_version = "2"
-
+$tool_version = "2"
+#by Cooper
 #$IIStoday = Get-Date -format "yyMMdd"  #https://technet.microsoft.com/en-us/library/ee692801.aspx
 
 # config IIS file: C:\inetpub\history\CFGHISTORY_0000000020
@@ -16,7 +16,7 @@ $file_filter = "*.log"
 
 
 IF(!(Test-Path $reg_basepath)) { New-Item -Path $reg_basepath -Force | Out-Null }
-New-ItemProperty -Path $reg_basepath -Name version -Value $IIS_LogRotator_version -PropertyType DWord -Force | Out-Null
+New-ItemProperty -Path $reg_basepath -Name version -Value $tool_version -PropertyType DWord -Force | Out-Null
 $today = (Get-Date -format "yyMMdd")
 
 $IIS_sites = Get-ChildItem -path $IIS_log_path
