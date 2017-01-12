@@ -1,8 +1,6 @@
 clear
 $IIS_LogRotator_version = "2"
 
-# is log for site of per server?
-# netsh http flush logbuffer - vypsaní logů na disk
 #$IIStoday = Get-Date -format "yyMMdd"  #https://technet.microsoft.com/en-us/library/ee692801.aspx
 
 # config IIS file: C:\inetpub\history\CFGHISTORY_0000000020
@@ -32,12 +30,12 @@ function fNewfile {
 	IF(!(Test-Path $reg_instancepath)) { New-Item -Path $reg_instancepath -Force | Out-Null }
 	New-ItemProperty -Path $reg_instancepath -Name LastFile -Value $latest -PropertyType STRING -Force | Out-Null
 	
-	IF ( $file_old -ne $latest ) { 
+	IF ( !$file_old ) { 
+		#Write-Host "nic v registru"
+		}
+	elseif ( $file_old -ne $latest ) {
 		Write-Host "v regu je starý soubor, tak se na něj ještě jednou podívám" $file_old "vs" $latest
 		$latest = $file_old
-		}
-	elseif (!$file_old) {
-		#Write-Host "nic v registru"
 		}
 	else {
 		#Write-Host "vše OK"
